@@ -22,7 +22,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: d1 migrations apply croissant
+          command: d1 migrations apply croissant --remote
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
