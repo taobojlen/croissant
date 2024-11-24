@@ -19,10 +19,8 @@ export default defineConfig(({ isSsrBuild }) => ({
   },
   ssr: {
     target: "webworker",
-    noExternal: true,
-    external: ["react-textarea-autosize"],
     resolve: {
-      conditions: ["workerd", "browser"],
+      conditions: ["worker", "workerd", "browser"],
     },
     optimizeDeps: {
       include: [

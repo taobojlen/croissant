@@ -1,11 +1,81 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "008ee181-36ed-4cc3-b593-481f13e2254a",
+  "id": "36f3084d-ab94-4a03-8465-f7fbb5be47ce",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "guestBook": {
-      "name": "guestBook",
+    "testRun": {
+      "name": "testRun",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "testId": {
+          "name": "testId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "branch": {
+          "name": "branch",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date": {
+          "name": "date",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "passed": {
+          "name": "passed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "failed": {
+          "name": "failed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "testRun_testId_branch_date_unique": {
+          "name": "testRun_testId_branch_date_unique",
+          "columns": ["testId", "branch", "date"],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "testRun_testId_test_id_fk": {
+          "name": "testRun_testId_test_id_fk",
+          "tableFrom": "testRun",
+          "tableTo": "test",
+          "columnsFrom": ["testId"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "test": {
+      "name": "test",
       "columns": {
         "id": {
           "name": "id",
@@ -20,21 +90,12 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
-        },
-        "email": {
-          "name": "email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         }
       },
       "indexes": {
-        "guestBook_email_unique": {
-          "name": "guestBook_email_unique",
-          "columns": [
-            "email"
-          ],
+        "test_name_unique": {
+          "name": "test_name_unique",
+          "columns": ["name"],
           "isUnique": true
         }
       },

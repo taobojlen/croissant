@@ -8,5 +8,5 @@ main = "./build/server/index.js"
 [[d1_databases]]
 binding = "DB"
 database_name = "croissant"
-database_id = "<randomly generated UUID from cloudflare>"
+database_id = "croissant"
 migrations_dir = "drizzle"
