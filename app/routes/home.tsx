@@ -104,7 +104,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           width={500}
         />
       </Group>
-      <Table columns={columns} data={loaderData.tests} striped />
+      <Table
+        columns={columns}
+        data={loaderData.tests}
+        striped
+        stickyHeader
+        stickyHeaderOffset={60}
+      />
     </Stack>
   );
 }

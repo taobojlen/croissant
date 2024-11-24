@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import "@mantine/core/styles.css";
 import {
   ActionIcon,
+  Anchor,
   AppShell,
   Code,
   ColorSchemeScript,
@@ -21,7 +22,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
-import { Moon, Sun } from "@phosphor-icons/react";
+import { GithubLogo, Moon, Sun } from "@phosphor-icons/react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -84,6 +85,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </Group>
             </AppShell.Header>
             <AppShell.Main>{children}</AppShell.Main>
+            <AppShell.Footer p="sm">
+              <Group justify="space-between">
+                <Anchor
+                  href="https://github.com/taobojlen/croissant"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ml="auto"
+                >
+                  <GithubLogo /> Contribute on GitHub
+                </Anchor>
+              </Group>
+            </AppShell.Footer>
           </AppShell>
         </MantineProvider>
         <ScrollRestoration />
