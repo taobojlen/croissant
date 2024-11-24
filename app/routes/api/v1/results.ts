@@ -1,8 +1,7 @@
+import { database } from "~/database/context";
+import { Route } from "../../api/v1/+types/results";
+import { testRuns, tests } from "~/database/schema";
 import { sql } from "drizzle-orm";
-import { error } from "itty-router";
-import type { DrizzleD1Database } from "drizzle-orm/d1";
-import { tests, testRuns } from "~/database/schema";
-import * as schema from "~/database/schema";
 
 interface Content {
   branch: string;
@@ -10,16 +9,29 @@ interface Content {
   failed: [string];
 }
 
-export async function handleTestRun(
-  content: Content,
-  db: DrizzleD1Database<typeof schema>,
-) {
+function jsonResponse(data: unknown, status = 200) {
+  return new Response(JSON.stringify(data), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    status,
+  });
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  if (request.method !== "POST") {
+    return jsonResponse({ error: "Method Not Allowed" }, 405);
+  }
+
+  const db = database();
+  const content = (await request.json()) as Content;
+
   // First save all tests
   const allTests = new Set<{ name: string }>();
   content.passed.forEach((test) => allTests.add({ name: test }));
   content.failed.forEach((test) => allTests.add({ name: test }));
   if (allTests.size === 0) {
-    return error(422, "No tests provided");
+    return jsonResponse({ error: "No tests provided" }, 422);
   }
   await db.insert(tests).values(Array.from(allTests)).onConflictDoNothing();
   // Get PKs of all tests
@@ -66,9 +78,10 @@ export async function handleTestRun(
         },
       });
   }
-  return {
+
+  return jsonResponse({
     success: true,
     passed: passedTests.length,
     failed: failedTests.length,
-  };
+  });
 }
