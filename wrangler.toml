@@ -10,3 +10,6 @@ binding = "DB"
 database_name = "croissant"
 database_id = "6dfa01b6-879b-4b9c-a621-67660a32d534"
 migrations_dir = "drizzle"
+
+[vars]
+DATABASE_ID = "6dfa01b6-879b-4b9c-a621-67660a32d534"
