@@ -1,0 +1,12 @@
+workers_dev = true
+name = "croissant"
+compatibility_date = "2024-11-18"
+compatibility_flags = ["nodejs_compat"]
+main = "./build/server/index.js"
+# assets = { directory = "./build/client/" }
+
+[[d1_databases]]
+binding = "DB"
+database_name = "croissant"
+database_id = "<randomly generated UUID from cloudflare>"
+migrations_dir = "drizzle"
