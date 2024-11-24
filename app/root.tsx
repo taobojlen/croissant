@@ -12,10 +12,12 @@ import "@mantine/core/styles.css";
 import {
   ActionIcon,
   AppShell,
+  Code,
   ColorSchemeScript,
   Group,
   MantineProvider,
   Text,
+  Title,
   Tooltip,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
@@ -111,16 +113,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     stack = error.stack;
   }
 
-  // TODO: convert from tailwind->mantine
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
+    <>
+      <Title order={1}>{message}</Title>
       <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+      {stack && <Code block>{stack}</Code>}
+    </>
   );
 }
