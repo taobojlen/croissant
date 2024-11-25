@@ -2,6 +2,8 @@
 
 A dashboard for your flaky tests, built on Cloudflare Workers and D1.
 
+View an example at https://croissant.btao.workers.dev/.
+
 ## Deploying
 
 - Fork this repo.
